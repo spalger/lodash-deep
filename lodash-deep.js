@@ -126,7 +126,7 @@
      */
     deepPluck: function (collection, propertyPath) {
       return _.map(collection, function (item) {
-        return _.deepGetValue(item, propertyPath);
+        return _.deepGet(item, propertyPath);
       });
     },
 
@@ -235,9 +235,14 @@
       escape = false;
     }
 
+    if (steps[0] === '') {
+        //allow '[0]', or '.0'
+        steps.splice(0, 1);
+    }
+
     // capture the final step
-    path.push(step);
-    return path;
+    steps.push(step);
+    return steps;
   }
 
   function reverseString(string) {
